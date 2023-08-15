@@ -26,6 +26,9 @@ export class Users extends CodeBase {
     @Column({ length: 255, nullable: true })
     token?: string;
 
+    @Column({ length: 255, nullable: true })
+    userType?: string;
+
     @OneToMany(() => Order, (Order) => Order.user)
     order?: Order[];
 

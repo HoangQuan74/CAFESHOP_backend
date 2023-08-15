@@ -8,7 +8,6 @@ dotenv.config();
 import * as http from 'http';
 import morgan from 'morgan';
 import { AppDataSource } from './ormconfig';
-import { createConnection } from 'typeorm';
 const router = require('./api')
 
 const app = express();

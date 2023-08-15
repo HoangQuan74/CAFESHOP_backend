@@ -1,6 +1,7 @@
 import { getRepository } from "typeorm";
 import { Users } from "../../entity/Users";
 import { AppDataSource } from "../../ormconfig";
+import { Common } from "../../common/common";
 
 export class userService {
     public getUserLogin = async (email: string, password: string) => {
@@ -20,14 +21,26 @@ export class userService {
 
     public login = async (user: Users) => {
         try {
-            
+            const common = new Common()
+            const token = await common.makeToken(user.id, user.userType);
+            user.token = token;
+            this.saveUser(user);
 
             const returnData = {
-                accessToken: 0,
-                refreshToken: 0,
+                token: token,
                 user: user,
             }
-            return ;
+            return returnData;
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    public saveUser = async (user:Users) => {
+        try {
+            const repository = AppDataSource.getRepository(Users);
+            const result = await repository.save(user);
+            return result;
         } catch (e) {
             throw e;
         }

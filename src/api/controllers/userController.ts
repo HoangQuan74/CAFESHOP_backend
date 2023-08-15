@@ -17,6 +17,7 @@ const login = async (req: Request, res: Response) => {
         const data = await us.getUserLogin(email, password);
         if (data) {
             const returnData = await us.login(data);
+            return res.status(200).json(returnData);
         }else{
             return res.status(403).json({detail: `email or password was wrong!`});
         }
@@ -26,6 +27,16 @@ const login = async (req: Request, res: Response) => {
     }
 }
 
+const logout = async (req: Request, res: Response) => {
+    try {
+        
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+}
+
 module.exports = {
     login,
+    logout,
 }

@@ -3,6 +3,11 @@ import { CodeBase } from "./CodeBase"
 import { Order } from "./Orders";
 import { Cart } from "./Cart";
 
+export enum userType {
+    customer = 'c',
+    manager = 'm',
+}
+
 @Entity()
 export class Users extends CodeBase {
     @PrimaryGeneratedColumn()

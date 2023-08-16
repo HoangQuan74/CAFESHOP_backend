@@ -29,10 +29,14 @@ const login = async (req: Request, res: Response) => {
 
 const logout = async (req: Request, res: Response) => {
     try {
-        
+        const us = new userService();
+        const result = await us.logout(req);
+
+        if (!result) return res.status(403).json({detail: 'you miss token'});
+        return res.status(200).json({detail: 'logout successfull'});
     } catch (e) {
         console.log(e);
-        throw e;
+        return res.status(500).json({ detail: e.message });
     }
 }
 

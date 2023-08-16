@@ -46,7 +46,9 @@ app.use(
 );
 
 //api
-app.use('/api', router);
+app.use('/api/users', router);
+app.use('/api/managers', router);
+app.use('/api/customers', router);
 
 const httpServer = http.createServer(app);
 

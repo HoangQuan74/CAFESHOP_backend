@@ -7,4 +7,7 @@ const userController = require('./controllers/userController')
 // customers
 router.get('/customers', auth, userController.getCustomers);
 
+// products
+router.post('/itemtypes', auth, userController.saveItemType);
+
 module.exports = router;

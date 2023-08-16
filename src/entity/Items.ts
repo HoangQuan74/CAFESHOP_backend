@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn } from "typeorm"
 import { CodeBase } from "./CodeBase"
 import { DetailOrder } from "./DetailOrder";
 import { DetailCart } from "./DetailCart";
+import { ItemTypes } from "./itemTypes";
 
 @Entity()
 export class Items extends CodeBase {
@@ -11,9 +12,15 @@ export class Items extends CodeBase {
     @Column()
     price: number;
 
+    @Column({name: 'item_type'})
+
     @OneToMany(() => DetailOrder, (DetailOrder) => DetailOrder.item)
     detailOrder?: DetailOrder[];
 
     @OneToMany(() => DetailCart, (DetailCart) => DetailCart.item)
     detailCart?: DetailCart[];
+
+    @ManyToOne(() => ItemTypes, (ItemTypes) => ItemTypes.id)
+    @JoinColumn({ name: 'item_type', referencedColumnName: 'id' })
+    itemType?: ItemTypes;
 }

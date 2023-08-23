@@ -12,7 +12,14 @@ export class Items extends CodeBase {
     @Column()
     price: number;
 
-    @Column({name: 'item_type'})
+    @Column({name: 'item_type_id'})
+    itemTypeId: number;
+
+    @Column()
+    name: string;
+
+    @Column({type: 'longblob'})
+    image: string;
 
     @OneToMany(() => DetailOrder, (DetailOrder) => DetailOrder.item)
     detailOrder?: DetailOrder[];

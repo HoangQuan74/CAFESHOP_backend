@@ -10,5 +10,6 @@ router.get('/customers', auth, userController.getCustomers);
 // products
 router.post('/itemtypes', auth, userController.saveItemType);
 router.get('/itemtypes', auth, userController.getItemType);
+router.post('/itemtypes/:id/items', auth, userController.saveItems);
 
 module.exports = router;

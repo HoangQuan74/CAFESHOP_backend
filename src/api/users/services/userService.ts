@@ -2,6 +2,7 @@ import { Users } from "../../../entity/Users";
 import { AppDataSource } from "../../../ormconfig";
 import { Common } from "../../../common/common";
 import { Request, Response } from "express";
+import { Cart } from "../../../entity/Cart";
 
 export class userService {
   public getUserLogin = async (email: string, password: string) => {
@@ -39,7 +40,32 @@ export class userService {
   public saveUser = async (user: Users) => {
     try {
       const repository = AppDataSource.getRepository(Users);
-      const result = await repository.save(user);
+      let result;
+      let oldData;
+      if(user.id){
+        oldData = await repository.findOne({
+          where: {
+            id: user.id,
+          }
+        })
+      }
+      if (oldData) {
+        user.id = oldData.id;
+        result = await repository.save(user);
+      }else{
+        const checkEmail = await repository.findOne({
+          where: {
+            email: user.email,
+          }
+        })
+        if (checkEmail) return false;
+        result = await repository.save(user);
+        const repositoryCart = AppDataSource.getRepository(Cart);
+        const cart: Cart = {
+          userId: result.id,
+        }
+        await repositoryCart.save(cart);
+      }
       return result;
     } catch (e) {
       throw e;
@@ -48,12 +74,13 @@ export class userService {
 
   public getUserByToken = async (req: Request) => {
     try {
-      if (!req.headers?.token) return {};
+      console.log(req.headers);
+      if (!req.headers?.authorization) return false;
 
       const repository = AppDataSource.getRepository(Users);
       return repository.findOne({
         where: {
-          token: req.headers.token,
+          token: req.headers.authorization,
         },
       });
     } catch (e) {

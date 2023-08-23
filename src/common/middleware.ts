@@ -4,7 +4,7 @@ import { userService } from '../api/users/services/userService';
 const auth = async (req:Request, res:Response, next:NextFunction) => {
     try {
         const us = new userService();
-        const data = us.getUserByToken(req);
+        const data = await us.getUserByToken(req);
 
         if (data) {
             req.user = data;
@@ -17,6 +17,4 @@ const auth = async (req:Request, res:Response, next:NextFunction) => {
     }
 }
 
-module.exports = {
-    auth,
-}
+export{auth}

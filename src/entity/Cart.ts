@@ -6,7 +6,7 @@ import { DetailCart } from "./DetailCart";
 @Entity()
 export class Cart extends CodeBase {
     @PrimaryGeneratedColumn()
-    id: number;
+    id?: number;
 
     @Column({name: 'user_id'})
     userId: number;

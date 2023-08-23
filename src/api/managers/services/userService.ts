@@ -23,4 +23,14 @@ export class userService {
         }
     }
 
+    public getItemType = async () => {
+        try {
+            const repository = AppDataSource.getRepository(ItemTypes);
+            const data = repository.find();
+            return data;
+        } catch (e) {
+            throw e;
+        }
+    }
+
 }

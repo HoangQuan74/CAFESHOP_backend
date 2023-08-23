@@ -32,10 +32,25 @@ exports.saveItemType = async (req:Request, res:Response) => {
         if (error) return res.status(401).json({detail: error.message});
 
         const us = new userService(); 
-        const itemType: ItemTypes = value.name;
+        const itemType:ItemTypes = value;
         const result = await us.saveItemType(itemType);
         if (!result) return res.status(401).json({detail: 'not saved itemType'});
         return res.status(200).json(result); 
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({ detail: e.message });
+    }
+}
+
+exports.getItemType =async (req:Request, res:Response) => {
+    try {
+        if (req.user?.userType !== userType.manager) 
+            return res.status(403).json({detail: 'manager not found!' });
+
+        const us = new userService();
+        const data = await us.getItemType();
+        if (!data) return res.status(403).json({detail: `not found data`});
+        return res.status(200).json(data);
     } catch (e) {
         console.log(e);
         return res.status(500).json({ detail: e.message });

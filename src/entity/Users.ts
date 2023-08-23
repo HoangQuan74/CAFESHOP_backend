@@ -31,7 +31,7 @@ export class Users extends CodeBase {
     @Column({ length: 255, nullable: true })
     token?: string;
 
-    @Column({ length: 255, nullable: true })
+    @Column({ length: 255, nullable: true , default: userType.customer})
     userType?: string;
 
     @OneToMany(() => Order, (Order) => Order.user)

@@ -1,5 +1,5 @@
 import express from 'express';
-const auth = require('../../common/middleware');
+import { auth } from '../../common/middleware';
 const router = express.Router();
 
 const userController = require('./controllers/userController')
@@ -9,5 +9,6 @@ router.get('/customers', auth, userController.getCustomers);
 
 // products
 router.post('/itemtypes', auth, userController.saveItemType);
+router.get('/itemtypes', auth, userController.getItemType);
 
 module.exports = router;

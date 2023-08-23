@@ -8,7 +8,6 @@ dotenv.config();
 import * as http from 'http';
 import morgan from 'morgan';
 import { AppDataSource } from './ormconfig';
-const router = require('./api')
 
 const app = express();
 
@@ -46,9 +45,8 @@ app.use(
 );
 
 //api
-app.use('/api/users', router);
-app.use('/api/managers', router);
-app.use('/api/customers', router);
+app.use('/api/users', require('./api/users'));
+app.use('/api/managers', require('./api/managers'));
 
 const httpServer = http.createServer(app);
 

@@ -51,4 +51,14 @@ export class userService {
         }
     }
 
+    public getItems = async () => {
+        try {
+            const repository = AppDataSource.getRepository(Items);
+            const data = repository.find();
+            return data;
+        } catch (e) {
+            throw e;
+        }
+    }
+
 }

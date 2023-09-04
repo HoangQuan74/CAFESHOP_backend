@@ -97,7 +97,7 @@ exports.saveItems =async (req:Request, res: Response) => {
         const schema = Joi.object({
             name: Joi.string().required(),
             price: Joi.number().required(),
-            image: Joi.string().required(),
+            image: Joi.string().optional(),
             itemTypeId: Joi.number().required(),
         })
 
@@ -112,5 +112,20 @@ exports.saveItems =async (req:Request, res: Response) => {
     } catch (e) {
         console.log(e);
         return res.status(500).json({ detail: e.message });
+    }
+
+    exports.getItems =async (req:Request, res:Response) => {
+        try {
+            if (req.user?.userType !== userType.manager) 
+                return res.status(403).json({detail: 'manager not found!' });
+    
+            const us = new userService();
+            const data = await us.getItems();
+            if (!data) return res.status(403).json({detail: `not found data`});
+            return res.status(200).json(data);
+        } catch (e) {
+            console.log(e);
+            return res.status(500).json({ detail: e.message });
+        }
     }
 }

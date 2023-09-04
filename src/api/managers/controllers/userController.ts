@@ -63,21 +63,19 @@ exports.saveItems =async (req:Request, res: Response) => {
         if (req.user?.userType !== userType.manager) 
             return res.status(403).json({detail: 'manager not found!' });
         
-        const schema = Joi.array().items(
-            Joi.object({
-                name: Joi.string().required(),
-                price: Joi.number().required(),
-                image: Joi.string().optional(),
-            }).required(),
-        ).required();
+        const schema = Joi.object({
+            name: Joi.string().required(),
+            price: Joi.number().required(),
+            image: Joi.string().required(),
+        })
 
         const { error, value } = schema.validate(req.body);
         if (error) return res.status(403).json(error);
 
-        const items: Items[] = value;
+        const items: Items = value;
 
         const us = new userService();
-        const data = 0//await us.saveItems();
+        const data =  await us.saveItem(items);
         return res.status(200).json(data);
     } catch (e) {
         console.log(e);

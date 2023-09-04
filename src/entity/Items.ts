@@ -18,7 +18,7 @@ export class Items extends CodeBase {
     @Column()
     name: string;
 
-    @Column({type: 'longblob'})
+    @Column({type: 'mediumblob'})
     image: string;
 
     @OneToMany(() => DetailOrder, (DetailOrder) => DetailOrder.item)

@@ -40,7 +40,6 @@ export class userService {
   public saveUser = async (user: Users) => {
     try {
       const repository = AppDataSource.getRepository(Users);
-      let result;
       let oldData;
       if(user.id){
         oldData = await repository.findOne({
@@ -49,23 +48,18 @@ export class userService {
           }
         })
       }
-      if (oldData) {
-        user.id = oldData.id;
-        result = await repository.save(user);
-      }else{
-        const checkEmail = await repository.findOne({
-          where: {
-            email: user.email,
-          }
-        })
-        if (checkEmail) return false;
-        result = await repository.save(user);
-        const repositoryCart = AppDataSource.getRepository(Cart);
-        const cart: Cart = {
-          userId: result.id,
+      const checkEmail = await repository.findOne({
+        where: {
+          email: user.email,
         }
-        await repositoryCart.save(cart);
+      })
+      if (checkEmail) return false;
+      const result = await repository.save(user);
+      const repositoryCart = AppDataSource.getRepository(Cart);
+      const cart: Cart = {
+        userId: result.id,
       }
+      await repositoryCart.save(cart);
       return result;
     } catch (e) {
       throw e;

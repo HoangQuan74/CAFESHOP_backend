@@ -1,3 +1,4 @@
+import { Items } from "../../../entity/Items";
 import { Users, userType } from "../../../entity/Users";
 import { ItemTypes } from "../../../entity/itemTypes";
 import { AppDataSource } from "../../../ormconfig";
@@ -28,6 +29,16 @@ export class userService {
             const repository = AppDataSource.getRepository(ItemTypes);
             const data = repository.find();
             return data;
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    public saveItem = async (item: Items) => {
+        try {
+            const repository = AppDataSource.getRepository(Items);
+            const result = await repository.save(item);
+            return result;
         } catch (e) {
             throw e;
         }

@@ -34,6 +34,9 @@ export class Users extends CodeBase {
     @Column({ length: 255, nullable: true , default: userType.customer})
     userType?: string;
 
+    @Column({ nullable: true , type: 'mediumblob'})
+    avata?: string;
+
     @OneToMany(() => Order, (Order) => Order.user)
     order?: Order[];
 

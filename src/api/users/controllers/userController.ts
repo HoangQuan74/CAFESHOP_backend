@@ -49,6 +49,7 @@ const signup = async (req: Request, res: Response) => {
             email: Joi.string().email().required(),
             password: Joi.string().required(),
             birthDay: Joi.date().optional(),
+            avata: Joi.string().optional(),
         });
 
         const { error, value } = schema.validate(req.body);

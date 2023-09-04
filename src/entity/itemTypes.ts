@@ -10,7 +10,7 @@ export class ItemTypes extends CodeBase {
     @Column()
     name: string;
 
-    @Column({type: 'mediumblob'})
+    @Column({type: 'mediumblob', nullable: true})
     image: string;
 
     @OneToMany(() => Items, (Items) => Items.itemType)

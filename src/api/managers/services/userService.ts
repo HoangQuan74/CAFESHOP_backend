@@ -17,6 +17,13 @@ export class userService {
     public saveItemType = async (itemType: ItemTypes) => {
         try {
             const repository = AppDataSource.getRepository(ItemTypes);
+            if (itemType.id) {
+                const oldData = repository.findOne({
+                    where: {
+                        id: itemType.id,
+                    }
+                });
+            }
             const result = await repository.save(itemType);
             return result;
         } catch (e) {

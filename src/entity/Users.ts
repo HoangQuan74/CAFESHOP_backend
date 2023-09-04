@@ -25,7 +25,7 @@ export class Users extends CodeBase {
     @Column({ length: 255, nullable: true })
     email?: string;
 
-    @Column({ length: 20, nullable: true })
+    @Column({ nullable: true })
     phone?: number;
 
     @Column({ length: 255, nullable: true })

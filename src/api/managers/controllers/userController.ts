@@ -27,13 +27,14 @@ exports.saveItemType = async (req:Request, res:Response) => {
 
         const schema = Joi.object({
             name: Joi.string().required(),
+            image: Joi.string().required(),
         })
 
         const { error, value } = schema.validate(req.body);
         if (error) return res.status(401).json({detail: error.message});
 
         const us = new userService(); 
-        const itemType:ItemTypes = value;
+        const itemType: ItemTypes = value;
         const result = await us.saveItemType(itemType);
         if (!result) return res.status(401).json({detail: 'not saved itemType'});
         return res.status(200).json(result); 

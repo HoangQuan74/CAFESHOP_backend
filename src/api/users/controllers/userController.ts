@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Joi from "joi";
+import Joi, { number } from "joi";
 import { userService } from "../services/userService";
 import { Users } from "../../../entity/Users";
 
@@ -47,6 +47,7 @@ const signup = async (req: Request, res: Response) => {
             firstName: Joi.string().required(),
             lastName: Joi.string().required(),
             email: Joi.string().email().required(),
+            phone: Joi.number().optional(),
             password: Joi.string().required(),
             birthDay: Joi.date().optional(),
             avata: Joi.string().optional(),

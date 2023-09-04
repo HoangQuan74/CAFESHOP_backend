@@ -25,11 +25,11 @@ export class userService {
       const common = new Common();
       const token = await common.makeToken(user.id, user.userType);
       user.token = token;
-      this.saveUser(user);
+      const _user = await this.saveUser(user);
 
       const returnData = {
-        token: token,
-        user: user,
+        token: user.token,
+        user: _user,
       };
       return returnData;
     } catch (e) {
@@ -47,6 +47,8 @@ export class userService {
             id: user.id,
           }
         })
+        await repository.save(user);
+        return user;
       }
       const checkEmail = await repository.findOne({
         where: {

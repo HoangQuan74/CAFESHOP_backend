@@ -12,3 +12,4 @@
 ::1 - - [23/Aug/2023:08:29:26 +0000] "POST /api/managers/itemtypes HTTP/1.1" 500 65 "-" "PostmanRuntime/7.32.3"
 ::1 - - [23/Aug/2023:08:29:48 +0000] "POST /api/managers/itemtypes HTTP/1.1" 500 65 "-" "PostmanRuntime/7.32.3"
 ::1 - - [23/Aug/2023:08:31:43 +0000] "POST /api/managers/itemtypes HTTP/1.1" 500 54 "-" "PostmanRuntime/7.32.3"
+::1 - - [04/Sep/2023:09:47:34 +0000] "POST /api/users/auth/login HTTP/1.1" 500 49 "-" "PostmanRuntime/7.32.3"

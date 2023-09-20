@@ -101,8 +101,15 @@ exports.saveItems =async (req:Request, res: Response) => {
             itemTypeId: Joi.number().required(),
         })
 
-        const { error, value } = schema.validate(req.body);
+        let { error, value } = schema.validate(req.body);
         if (error) return res.status(403).json(error);
+
+        if (req.params.iid) {
+            value = {
+                ...value,
+                id: req.params.iid,
+            }
+        }
 
         const items: Items = value;
 

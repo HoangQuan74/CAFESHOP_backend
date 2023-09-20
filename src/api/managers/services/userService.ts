@@ -61,4 +61,14 @@ export class userService {
         }
     }
 
+    public deleteItem = async (id: number) => {
+        try {
+            const repository = AppDataSource.getRepository(Items);
+            const data = repository.delete({id: id});
+            return data;
+        } catch (e) {
+            throw e;
+        }
+    }
+
 }

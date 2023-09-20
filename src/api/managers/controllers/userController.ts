@@ -136,3 +136,19 @@ exports.getItems =async (req:Request, res:Response) => {
         return res.status(500).json({ detail: e.message });
     }
 }
+
+exports.deleteItem =async (req:Request, res:Response) => {
+    try {
+        if (req.user?.userType !== userType.manager) 
+            return res.status(403).json({detail: 'manager not found!' });
+
+        const us = new userService();
+        const id = req.params.iid;
+        const result = await us.deleteItem(id)
+        if (!result) return res.status(403).json({detail: `not found data`});
+        return res.status(200).json(result);
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({ detail: e.message });
+    }
+}

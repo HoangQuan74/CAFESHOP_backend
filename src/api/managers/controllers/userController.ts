@@ -128,7 +128,12 @@ exports.getItems =async (req:Request, res:Response) => {
             return res.status(403).json({detail: 'manager not found!' });
 
         const us = new userService();
-        const data = await us.getItems();
+        let data;
+        if (req.params.id) {
+            data = await us.getItems(req.params.id);
+        } else{
+            const data = await us.getItems();
+        }
         if (!data) return res.status(403).json({detail: `not found data`});
         return res.status(200).json(data);
     } catch (e) {

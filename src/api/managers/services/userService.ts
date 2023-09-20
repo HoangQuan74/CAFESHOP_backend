@@ -51,11 +51,17 @@ export class userService {
         }
     }
 
-    public getItems = async () => {
+    public getItems = async (id: number = null) => {
         try {
             const repository = AppDataSource.getRepository(Items);
-            const data = repository.find();
-            return data;
+            if (id) {
+                const data = repository.find( {where:{itemTypeId: id}} )
+                return data;
+            } else {
+                const data = repository.find();
+                return data;
+            }
+            return;
         } catch (e) {
             throw e;
         }
